@@ -169,8 +169,8 @@ At this point you'll need to work out yourself that `89 = (5 * 16) + 9`,
 and therefore `659721 mod 16 = 9`.
 
 So now you can see pretty much why the rule of 3 works. Each column in the
-table for the 3 row has a 1. Put another way, `10^x mod 3 = 1` for all `x
->= 0`. That means that each digit in a number contributes 1 times that
+table for the 3 row has a 1. Put another way, `10^x mod 3 = 1` for all
+`x >= 0`. That means that each digit in a number contributes 1 times that
 digit to the remainder when the number is divided by 3. So if you simply
 add up the digits in the number (which of course the same as multiply each
 digit by 1 and adding up the products), you get the overall remainder.
