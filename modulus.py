@@ -45,21 +45,6 @@ parser = argparse.ArgumentParser(
         'modulus using the remainders for a given base.'))
 
 group = parser.add_argument_group(
-    'remainder', 'compute a specific remainder')
-
-group.add_argument(
-    '--n', type=int, metavar='N',
-    help='The number whose remainder should be computed.')
-
-group.add_argument(
-    '--base', type=int, metavar='N',
-    help='The int base of the remainder to compute.')
-
-group.add_argument(
-    '--verbose', action='store_true', default=False,
-    help='If specified, show intermediat information.')
-
-group = parser.add_argument_group(
     'list', 'print a list of remainders for a list of bases')
 
 group.add_argument(
@@ -79,6 +64,21 @@ group.add_argument(
     '--negatives', action='store_true', default=False,
     help=('If specified, print negative multipliers when the multiplier for '
           'a place is greater than half the base.'))
+
+group = parser.add_argument_group(
+    'remainder', 'compute a specific remainder')
+
+group.add_argument(
+    '--n', type=int, metavar='N',
+    help='The number whose remainder should be computed.')
+
+group.add_argument(
+    '--base', type=int, metavar='N',
+    help='The int base of the remainder to compute.')
+
+group.add_argument(
+    '--verbose', action='store_true', default=False,
+    help='If specified, show intermediat information.')
 
 args = parser.parse_args()
 
@@ -113,17 +113,27 @@ else:
     # Produce a list of remainders for a list of bases.
     assert args._from <= args.to, '--from must be <= --to'
     width = int(log10(args.to)) + 1 + args.negatives
+    places = args.places
+
+    # Print header line.
+    print('%*s  ' % (width, ''), end='')
+    for place in range(places, 0, -1):
+        print('%*d  ' % (width, place - 1), end='')
+    print()
+
+    negatives = args.negatives
     for base in range(args._from, args.to + 1):
-        if args.negatives:
+        if negatives:
             half = int(base / 2.0)
         print('%*d: ' % (width, base), end='')
-        remainders = list(mods(base, args.places))
-        for x in remainders[::-1]:
+        remainders = list(mods(base, places))
+        for place, x in enumerate(remainders[::-1], start=1):
             if x:
-                if args.negatives:
-                    if x > half:
-                        x = -(base - x)
-                print('%*d, ' % (width, x), end='')
+                if negatives and x > half:
+                    x = -(base - x)
+                print('%*d%s' %
+                      (width, x, '' if place == places else ', '), end='')
             else:
-                print('%*s  ' % (width, ''), end='')
+                print('%*s%s' %
+                      (width, '', '' if place == places else '  '), end='')
         print()
