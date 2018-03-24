@@ -1,3 +1,45 @@
+This repo has some simple code for playing around looking for remainder
+patterns that give tricks for rapid calculation of divisibility.
+
+When I was a kid we were told rules for divisibility. Some were very
+simple:
+
+* If the final digit of a number is 0, the number is divisible by 10.
+* If the final digit of a number is 0 or 5, the number is divisible by 5.
+* If the final digit of a number is even, the number is divisible by 2.
+
+Some were a little more involved:
+
+* If all the digits of a number add to something divisible by 3, then the
+  number is also divisible by 3.
+* If the two outside digits of a 3-digit number sum to the middle digit,
+  then the number is divisible by 11.
+
+When I was a teen I came across a more general rule for 11:
+
+* Alternately add and subtract the digits in the number. If the result is
+  divisible by 11, then the number is also divisible by 11.
+
+At some point as a teenager I worked out and proved why the rules for 3 and
+11 work (it's pretty easy - give it a go, or see below).
+
+Fast forward nearly 40 years... The other day I saw a tweet from
+[Josh Reich](https://twitter.com/i2pi) giving an example of the rule of 3:
+
+> 345 is divisible by 3. 3+4+5=12, 12/3=4. 345 = 3*100 + 4*10 + 5 =
+> 3*(99+1) + 4*(9+1) + 5*(0+1) = (3*99 + 4*9 + 5*0) + (3+4+5). The first part
+> is divisible by three (9, 99, 999, etc). The number will be divisible by
+> three if its sum of digits are. Happy 3pm!
+> 
+> Josh Reich (@i2pi)
+> [March 21, 2018]("https://twitter.com/i2pi/status/976579575030231040")
+
+I decided to write a quick bit of code to print out a table of remainders
+for different powers of ten and different bases to see if there were any
+other nice patterns.
+
+## modulus.py
+
 The short script in this repo (`modulus.py`) can do two things:
 
 1. Print a table of 10^`x` modulo `base` for increasing values of `x` and
@@ -53,46 +95,7 @@ $ modulus.py --places 6 --to 11 --negatives
  11:  -1,   1,  -1,   1,  -1,   1
 ```
 
-## OK, already, what's the point?
-
-I wrote this so I could look at the patterns of remainders to think about
-tricks for rapid calculation of divisibility.
-
-When I was a kid we were told rules for divisibility. Some were very
-simple. E.g.,
-
-* If the final digit of a number is 0, the number is divisible by 10.
-* If the final digit of a number is 0 or 5, the number is divisible by 5.
-* If the final digit of a number is even, the number is divisible by 2.
-
-and some were a little more involved:
-
-* If all the digits of a number add to something divisible by 3, then the
-  number is also divisible by 3.
-* If the two outside digits of a 3-digit number sum to the middle digit,
-  then the number is divisible by 11.
-
-When I was a teen I came across a more general rule for 11:
-
-* Alternately add and subtract the digits in the number. If the result is
-  divisible by 11, then the number is also divisible by 11.
-
-At some point I worked out (i.e., proved) why the rules for 3 and 11 work.
-
-The other day I saw a tweet from [Josh Reich](https://twitter.com/i2pi)
-giving an example of the rule of 3:
-
-<blockquote class="twitter-tweet" data-lang="en"><p> 345 is divisible
-by 3. 3+4+5=12, 12/3=4. 345 = 3*100 + 4*10 + 5 = 3*(99+1) + 4*(9+1) +
-5*(0+1) = (3*99 + 4*9 + 5*0) + (3+4+5). The first part is divisible by
-three (9, 99, 999, etc). The number will be divisible by three if its sum
-of digits are. Happy 3pm!</p>&mdash; Josh Reich (@i2pi) <a
-href="https://twitter.com/i2pi/status/976579575030231040">March 21,
-2018</a></blockquote>
-
-Later I decided to write a quick bit of code to print out a table of
-remainders for different powers of ten and different bases to see if there
-were any other nice patterns.
+### OK, already, what's the point?
 
 Here's a larger chunk of output:
 
@@ -169,15 +172,13 @@ At this point you'll need to work out yourself that `89 = (5 * 16) + 9`,
 and therefore `659721 mod 16 = 9`.
 
 So now you can see pretty much why the rule of 3 works. Each column in the
-table for the 3 row has a 1. Put another way, `10^x mod 3 = 1` for all
+table for the base 3 row has a 1. Put another way, `10^x mod 3 = 1` for all
 `x >= 0`. That means that each digit in a number contributes 1 times that
 digit to the remainder when the number is divided by 3. So if you simply
-add up the digits in the number (which of course the same as multiply each
-digit by 1 and adding up the products), you get the overall remainder.
+add up the digits in the number (which of course the same as multiplying
+each digit by 1 and adding up the products), you get the overall remainder.
 
 And you can see why the rule of 11 works.
-
-
 
 
 ## Printing a specific value
