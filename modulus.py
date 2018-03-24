@@ -112,8 +112,8 @@ if args.n is not None and args.base is not None:
 else:
     # Produce a list of remainders for a list of bases.
     assert args._from <= args.to, '--from must be <= --to'
-    width = int(log10(args.to)) + 1 + args.negatives
     places = args.places
+    width = int(log10(max(args.to, places))) + 1 + args.negatives
 
     # Print header line.
     print('%*s  ' % (width, ''), end='')
