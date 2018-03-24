@@ -82,14 +82,13 @@ At some point I worked out (i.e., proved) why the rules for 3 and 11 work.
 The other day I saw a tweet from [Josh Reich](https://twitter.com/i2pi)
 giving an example of the rule of 3:
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">345
-is divisible by 3. 3+4+5=12, 12/3=4. 345 = 3*100 + 4*10 + 5 = 3*(99+1) +
-4*(9+1) + 5*(0+1) = (3*99 + 4*9 + 5*0) + (3+4+5). The first part is
-divisible by three (9, 99, 999, etc). The number will be divisible by three
-if its sum of digits are. Happy 3pm!</p>&mdash; Josh Reich (@i2pi) <a
-href="https://twitter.com/i2pi/status/976579575030231040?ref_src=twsrc%5Etfw">March
-21, 2018</a></blockquote> <script async
-src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" data-lang="en"><p> 345 is divisible
+by 3. 3+4+5=12, 12/3=4. 345 = 3*100 + 4*10 + 5 = 3*(99+1) + 4*(9+1) +
+5*(0+1) = (3*99 + 4*9 + 5*0) + (3+4+5). The first part is divisible by
+three (9, 99, 999, etc). The number will be divisible by three if its sum
+of digits are. Happy 3pm!</p>&mdash; Josh Reich (@i2pi) <a
+href="https://twitter.com/i2pi/status/976579575030231040">March 21,
+2018</a></blockquote>
 
 Later I decided to write a quick bit of code to print out a table of
 remainders for different powers of ten and different bases to see if there
