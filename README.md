@@ -36,6 +36,11 @@ I decided to write a quick bit of code to print out a table of remainders
 for different powers of ten and different bases to see if there were any
 other nice patterns.
 
+This is all pretty trivial, but still fun/interesting to me after all these
+years. If you really want to dig into this sort of thing, have a read of
+the Wikipedia page on
+[Divisibility rules](https://en.wikipedia.org/wiki/Divisibility_rule).
+
 ## modulus.py
 
 The short script in this repo (`modulus.py`) can do two things:
