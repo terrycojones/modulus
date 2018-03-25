@@ -293,33 +293,87 @@ Finally, I have to mention 37, at least for sentimental reasons. When I was
 enough. So with the help of my first programmable calculator (my beloved
 [Casio FX-502P](https://en.wikipedia.org/wiki/Casio_FX-502P_series), before
 the [HP41](https://en.wikipedia.org/wiki/HP-41C) series stole my heart
-forever) I wrote out (yes, by hand, with a pen) the tables to 100x100. It
-covered something like 16 sheets of paper, which I taped together. I
+forever), I wrote out (yes, by hand, with a pen) the tables to 100x100. It
+covered something like 10 sheets of paper, which I taped together. I
 started trying to memorize the whole thing (all 4950 values) but didn't get
 too far.
 
-I noticed that 37 had a nice property. Here are the first multiples of 37:
+I noticed that 37 had a nice property. Here are the multiples of 37 out to
+999:
 
-    037, 074, 111, 148, 185, 222, 259, 296, 333, 370, 407, 444, 481, 518, 555
+    037, 074, 111, 148, 185, 222, 259, 296, 333,
+    370, 407, 444, 481, 518, 555, 592, 629, 666,
+    703, 740, 777, 814, 851, 888, 925, 962, 999.
 
-111, 222, 333 stand out, obviously. But if you look at the other digits you
-can see that to get from 037 to 074 you flip the last two digits and add
-one. To get from 148 to 185 or from 259 to 296, do the same thing. From 370
-to 407 and from 481 to 518 you flip the last two digits but add one in the
-hundreds column.
+111, 222, 333 stand out, obviously. But if you look at the other numbers
+you can see that to get from 037 to 074 you flip the last two digits and
+add one. To get from 148 to 185 or from 259 to 296, do the same thing. From
+370 to 407 or from 481 to 518 you flip the last two digits but add one in
+the hundreds column. In the last row the final 2 digits are again flipped,
+but one is then added to the middle digit.
 
-Here again is the row for 37:
+What's going on here?
+
+Here again is the remainder row for 37:
 
     37: -11, 10, 1, -11, 10, 1, -11, 10, 1, -11, 10, 1, -11, 10, 1
 
 The last three remainders are `-11, 10, 1`. You can see that if all digits
-are the same you're going to get a 0 total (since -11 + 10 + 1 = 0). 
+are the same you're going to get a 0 total (since -11 + 10 + 1 = 0).
 
-037:   0*-11 + 3*10 + 7*1
-074:   0*-11 + 7*10 + 4*1
+I can't see anything elegant here, it just seems like a quirk of the
+numbers involved that (because of the remainder values) depends on the
+difference between the digits.
 
-A*10 + B
-B*10 + (A+1)
+In the case where the 2nd and 3rd digits differ by 4 (i.e., the first of
+the three rows above: 037 -> 074, 148 -> 185, 259 -> 296), if we let the
+first number be `ABC` and we have `B + 4 = C` then the remainders for the
+two numbers in question (e.g., 148 and 185) are
+
+    -11A + 10B + 1C
+    -11A + 10C + 1(B+1)
+
+replacing C with B + 4:
+
+    -11A + 10B + 1(B+4) = -11A + 11B + 4
+    -11A + 10(B+4) + 1(B+1) = -11A + 11B + 41
+
+So the overall effect of swapping the two final digits and adding one is
+just the addition of 37, so a number that's already a multiple of 37
+remains a multiple of 37.
+
+Similarly, for the second row, if `B - 7 = C` we have
+
+    -11A + 10B + C
+    -11(A+1) + 10C + B
+
+replacing C with B - 7:
+
+    -11A + 10B + (B - 7)
+    -11(A + 1) + 10(B - 7) + B
+
+which is
+
+    -11A + 11B - 7
+    -11A - 11 + 10B -70 + B
+
+or
+
+    -11A + 11B - 7
+    -11A + 11B - 81
+
+So the overall effect is to change the remainder value by -74 (which is
+again 0 mod 37) and so the transformed number is again a multiple of 37 if
+the original number was.
+
+And the same will be true for the case where `B + 3 = C`.
+
+I don't have time to think about this any more for now, but I don't see
+anything particularly promising.  One thing to note is the the `-11, 10, 1`
+pattern of remainders would be `26, 10, 1` if I hadn't used `--negatives`
+and that sums to 37 (which is of course 0 mod 37). Some other numbers like
+3 (with `1, 1, 1`) and 111 (with `100, 10, 1`) have the same pattern. But
+they have to :-)
 
 
 ## Printing a specific value
